@@ -658,7 +658,126 @@
 
 - panic останавливает нормальное выполнение программы и начинает раскручивать стек вызовов, выполняя все отложенные defer-функции. Важно отметить, что после перехвата паники с помощью recover() программа продолжит выполнение после точки, где была вызвана функция, содержащая defer и recover
 
+---
 
+## Рефлексия
+
+- Рефлексия предоставляет возможность исследовать данные во время выполнения программы. Используя рефлексию, мы можем проверить поведение любого метода, интерфейса, структуры или любых данных. Используя рефлексию, мы можем получить тип, поле и значение любого типа. Хотя в языке Go каждая переменная объявляется со своим типом, тем не менее, может быть много случаев, когда нам может понадобиться узнать тип переменной во время выполнения. Здесь вступает в дело рефлексия
+
+- В языке Go в стандартной библиотеке за рефлексию отвечает встроенный пакет reflect. Этот пакет содержит несколько переменных и методов для манипулирования объектами различных типов и в основном используется для получения типа, значения и вида. Пакет reflect следует использовать для общего программирования или фреймворков, но избегать его в коде, для которого критически важна производительности, или там, где безопасность типов имеет важное значение. Рефлексия вносит издержки производительности, снижает безопасность типов и затрудняет поддержку кода
+
+- Пакет reflect предоставляет функцию TypeOf() для получения типа переменной:
+
+    ```go
+    func TypeOf( i interface{}) type
+    ```
+
+- Функция reflect.ValueOf() вычисляет значение переменной:
+
+    ```go
+    value := reflect.ValueOf(variable)
+    ```
+
+- Функция NumField используется для получения количества полей, содержащихся в структуре. Поскольку эта функция определена в пакете reflect, она работает только с типом reflect.Value или reflect: 
+
+    ```go
+    package main 
+ 
+    import (
+        "fmt"
+        "reflect"
+    )
+    
+    type person struct{
+    
+        name string
+        age int
+    }
+    
+    func main(){
+    
+        user := person{"Tom", 41}    
+        user_value := reflect.ValueOf(user) 
+        num_fields := user_value.NumField()
+    
+        fmt.Println("Fields number:", num_fields)  // Fields number: 2
+    }
+    ```
+
+- Функция Field используется для получения значения полей структуры. Она возвращает значение типа reflect.Value:
+
+    ```go
+    package main 
+ 
+    import (
+        "fmt"
+        "reflect"
+    )
+    
+    type person struct{
+    
+        name string
+        age int
+    }
+    
+    func main(){
+    
+        user := person{"Tom", 41} 
+    
+        user_value := reflect.ValueOf(user) 
+    
+        num_fields := user_value.NumField()
+    
+        for i:=0; i < num_fields; i++{
+    
+            fmt.Printf("Field %d. Value: %v  Type: %T\n", i+1, user_value.Field(i), user_value.Field(i))
+        }
+    }
+    ```
+
+    ```
+    Field 1. Value: Tom  Type: reflect.Value
+    Field 2. Value: 41  Type: reflect.Value
+    ```
+
+- Функция reflect.Kind() позволяет определить исходный тип значения reflect.Value. Например, выше мы получали тип полей как reflect.Value. Теперь получим исходный тип:
+
+    ```go
+    package main 
+ 
+    import (
+        "fmt"
+        "reflect"
+    )
+    
+    type person struct{
+    
+        name string
+        age int
+    }
+    
+    func main(){
+    
+        user := person{"Tom", 41} 
+    
+        user_value := reflect.ValueOf(user) 
+        fmt.Printf("User_Value: %v  Type: %v\n", user_value, user_value.Kind())
+    
+        // получаем количество полей
+        num_fields := user_value.NumField()
+        // исследуем все поля
+        for i:=0; i < num_fields; i++{
+    
+            fmt.Printf("Field %d. Value: %v  Type: %v\n", i+1, user_value.Field(i), user_value.Field(i).Kind())
+        }
+    }
+    ```
+
+    ```
+    User_Value: {Tom 41}  Type: struct
+    Field 1. Value: Tom  Type: string
+    Field 2. Value: 41  Type: int
+    ```
 
 ---
 
