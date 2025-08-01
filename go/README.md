@@ -720,6 +720,50 @@
     func (r *Row) Scan(dest ...interface{}) error
     ```
 
+- Для работы с PostgreSQL в Go мы можем применять различные драйверы, но в данном случае мы будем использовать Pure Go Postgres driver: 
+
+    ```
+    go get github.com/lib/pq
+    ```
+
+- Для открытия соединения с базой данных в функцию sql.Open() передается имя драйвера "postgres" и строка подключения:
+
+    ```go
+    connStr := "user=postgres password=mypass dbname=productdb sslmode=disable"
+    db, err := sql.Open("postgres", connStr)
+    ```
+
+    В результате установки подлючения метод db.Open возвратить объект *DB, через который можно будет взаимодействовать в базой данных
+
+- Ниже приведен скрипт-референс для вполнения метода Exec(): 
+
+    ```go
+    package main
+    import (
+        "database/sql"
+        "fmt"
+        _ "github.com/lib/pq"
+    )
+    
+    func main() { 
+    
+        connStr := "user=postgres password=mypass dbname=productdb sslmode=disable"
+        db, err := sql.Open("postgres", connStr)
+        if err != nil {
+            panic(err)
+        } 
+        defer db.Close()
+        
+        result, err := db.Exec("insert into Products (model, company, price) values ('iPhone X', $1, $2)", 
+            "Apple", 72000)
+        if err != nil{
+            panic(err)
+        }
+        fmt.Println(result.LastInsertId())  // не поддерживается
+        fmt.Println(result.RowsAffected())  // количество добавленных строк
+    }
+    ```
+
 ---
 
 ## Рефлексия
