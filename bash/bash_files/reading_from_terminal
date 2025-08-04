@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Enter your nickname:"
+read USER_NAME
+echo "Your name: $USER_NAME"
+
+exit 0
