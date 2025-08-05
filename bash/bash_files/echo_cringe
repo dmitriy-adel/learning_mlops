@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo $cringe_var
-
-exit 0

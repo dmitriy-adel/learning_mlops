@@ -22,7 +22,9 @@
 - Существует несколько вариантов запустить shell-скрипт: 
 
     1. Сделать скрипт исполняемым и запустить как обычную программу
+
     2. Запустить скрипт как аргумент программы bash
+
     3. Сделать скрипт исполняемым и запустить как обычную программу
 
     Первый вариант - можно сделать скрипт исполняемым, если добавить ему права при помощи команды: 
@@ -118,6 +120,7 @@
     echo "Your name: $USER_NAME"
 
     exit 0
+    ```
 
 ---
 
@@ -129,7 +132,7 @@
     #!/bin/bash
 
     echo $0 $1
-    exit 0
+    exit 
     ```
 
 Кроме $0 внутри скрипта можно использовать еще ряд специальных идентификаторов:    
@@ -154,4 +157,60 @@
     (base) quing@quing-st:~/github_projects/learning_mlops/bash/bash_files$ bash check_arguments_amount cringe file top
     Total arguments incoming: 3
     String with arguments (@) cringe file top ; (*) cringe file top
+    ```
+
+---
+
+## Результаты команд и операторов
+
+- `command substitution` - возможность представить результат выполнения одной команды в качестве аргумента другой команды. Для этого команда помещается в косые кавычки. Например, выведем текущую дату в формате "dd.MM.yy":
+
+    ```bash
+    #!/bin/bash
+
+    echo "Today is `date +%d-%m-%y`"
+    exit 0
+    ```
+
+    Вывод: 
+
+    ```bash
+    (base) quing@quing-st:~/github_projects/learning_mlops/bash/bash_scripts$ ./show_date 
+    Today is 05-08-25
+    ```
+
+- Перед выполнением некоторых действий может потребоваться проверить, действительно ли переменной присвоено некоторое значение. Для этого Bash предлагает операторы подстановки или `substitution operators`. Например, используя операторы подстановки, можно присвоить значение по умолчанию, если переменной в данный момент присвоено значение. Мы можем использовать следующие операторы подстановки:
+
+    1. *${parameter:-value}*: показывает значение value, если параметр не определен.
+
+    2. *${parameter=value}*: присваивает значение value параметру, если параметр вообще не существует. Этот оператор ничего не делает, если параметр существует, но не имеет значения.
+
+    3. *${parameter:=value}*: присваивает значение value параметру, если этот параметр в данный момент не имеет значения или вообще не существует.
+
+    4. *${parameter:?value}*: показывает значение value, если параметр не существует или пуст. Использование этой конструкции приведет к немедленному прерыванию сценария оболочки.
+
+    5. *${parameter:+value}*: показывает значение value, если параметр имеет значение. Если у параметра нет значения, ничего не происходит.
+
+    Рассмотрим все варианты операторов подстановки на примере простого скрипта: 
+
+    ```bash
+    #!/bin/bash
+
+    echo "Printing empty variable VAR: $VAR"
+    echo
+
+    echo "Show 'EmptyVar' if VAR is empty: ${VAR: -EmptyVar}"
+    echo "Set 'SomeVal' if VAR is undefined: ${VAR=SomeVal}"
+    echo
+
+    echo "Printing variable VAR if it defined. Else give new value: ${VAR:=null}"
+    VAR=
+    echo "Printing variable VAR if it defined. Else give new value: ${VAR:=null}"
+    echo
+
+    echo "Show notification if VAR is undefined: ${VAR:? Variable VAR is undefined}"
+    echo "Show notification if VOID is undefined: ${VOID:? Variable VAR is undefined}"
+    echo
+
+    exit 0
     ```
