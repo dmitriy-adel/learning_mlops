@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Today is `date +%d-%m-%y`"
+
+exit 0

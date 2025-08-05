@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Total arguments incoming: $#"
+echo "String with arguments (@) $@ ; (*) $*"
+
+exit 0
