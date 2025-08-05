@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NICKNAME="quing"
+AGE=20
+TOWN="Moscow"

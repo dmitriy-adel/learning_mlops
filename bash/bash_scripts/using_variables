@@ -1,0 +1,16 @@
+#!/bin/bash
+
+message="Htllo, World! p.2"
+echo $message
+
+echo "NEXT PART>>>>>>>>>>>>"
+
+message="Hello, GH!"
+echo $message
+
+message="Hello, World! p.2.1"
+echo $message
+
+echo "NEXT PART>>>>>>>>>>>>"
+
+exit 0

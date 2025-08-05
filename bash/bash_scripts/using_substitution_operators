@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Printing empty variable VAR: $VAR"
+echo
+
+echo "Show 'EmptyVar' if VAR is empty: ${VAR: -EmptyVar}"
+echo "Set 'SomeVal' if VAR is undefined: ${VAR=SomeVal}"
+echo
+
+echo "Printing variable VAR if it defined. Else give new value: ${VAR:=null}"
+VAR=
+echo "Printing variable VAR if it defined. Else give new value: ${VAR:=null}"
+echo
+
+echo "Show notification if VAR is undefined: ${VAR:? Variable VAR is undefined}"
+echo "Show notification if VOID is undefined: ${VOID:? Variable VAR is undefined}"
+echo
+
+exit 0
