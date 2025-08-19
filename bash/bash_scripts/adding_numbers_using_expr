@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Enter 2 numbers: "
+read N1
+read N2
+
+result=`expr $N1 + $N2`
+echo "Sum of N1 and N2 = $result"
+
+exit
