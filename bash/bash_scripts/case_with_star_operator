@@ -1,0 +1,16 @@
+#!/bin/bash
+
+N=4
+case $N in
+    1)
+    echo "num = 1"
+    ;;
+    2)
+    echo "num = 2"
+    ;;
+    *)
+    echo "Unknown value"
+    ;;
+esac
+ 
+exit 0
