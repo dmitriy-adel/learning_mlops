@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for t in `cat /etc/passwd`
+do
+    echo $t
+done
+
+exit 0

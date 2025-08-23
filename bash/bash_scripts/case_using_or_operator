@@ -1,0 +1,16 @@
+#!/bin/bash
+
+N=2
+case $N in
+    1|2|3)
+    echo "num равно или 1 или 2 или 3"
+    ;;
+    4)
+    echo "num равно 4"
+    ;;
+    *)
+    echo "Unknown value"
+    ;;
+esac
+ 
+exit 0

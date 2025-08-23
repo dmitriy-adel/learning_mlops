@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for ((t=1; t <= 5; t++))
+do
+    echo "t == $t"
+done
+ 
+exit

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+N=2
+case $N in
+    1)
+    echo "num = 1"
+    ;;
+    2)
+    echo "num = 2"
+    ;;
+    3)
+    echo "num = 3"
+    ;;
+esac
+ 
+exit 0
