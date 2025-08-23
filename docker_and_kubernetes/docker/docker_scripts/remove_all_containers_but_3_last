@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sduo docker rm $(docker ps -a -q -f status=exited | tail -n +4)
+
+exit
