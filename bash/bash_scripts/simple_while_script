@@ -1,0 +1,10 @@
+#!/bin/bash
+
+N=0
+while [ $N -lt 5 ]
+do
+    echo "num равно $N"
+    N=$((N+1))
+done
+
+exit 0
