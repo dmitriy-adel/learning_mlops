@@ -6,8 +6,8 @@
 Было принято решение начать изучение направления согласно [приведенному роадмапу](https://roadmap.sh/mlops). Изучаемые темы имеют следующий порядок: 
 
 1. go basics                | almost finished
-2. bash basics              | in process
-3. cloud computing          | feauture
+2. bash basics              | done
+3. cloud computing          | in progress
 4. docker and kubernetes    | feauture
 5. message brokers          | feauture
 6. data engineering         | feauture
