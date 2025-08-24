@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo docker run misaogura/whalesay "Whalesay for ur name! $1"
+
+exit
