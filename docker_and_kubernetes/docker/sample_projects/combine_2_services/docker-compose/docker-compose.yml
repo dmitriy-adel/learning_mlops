@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  service_receiver:
+    build:
+      context: ..
+      dockerfile: service_reciever/dockerfile/Dockerfile
+    container_name: service_receiver
+    ports:
+      - "8088:8088"
+    depends_on:
+      - service_processor
+    environment:
+      - PROCESSOR_HOST=http://service_processor:8087
+
+  service_processor:
+    build:
+      context: ..
+      dockerfile: sercice_processor/dockerfile/Dockerfile
+    container_name: service_processor
+    ports:
+      - "8087:8087"
