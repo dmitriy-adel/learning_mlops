@@ -17,7 +17,7 @@ def count_words(request: TextRequest):
 @app.post("/count_chars")
 def count_chars(request: TextRequest):
     chars = len(request.text.replace(" ", ""))
-    return {"char_count": chars}
+    return {"chars_count": chars}
 
 
 @app.post("/reverse")
